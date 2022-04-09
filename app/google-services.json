@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "511800956434",
+    "project_id": "voter-5911e",
+    "storage_bucket": "voter-5911e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:511800956434:android:940f2f37759cf62589aacb",
+        "android_client_info": {
+          "package_name": "hu.bme.aut.voter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "511800956434-vbtbcf4i3rtvpldcltga3glk3vf13q3k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBhBXyuNTzA-Q7hhhozagBCxaHOOO1S9Yg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "511800956434-vbtbcf4i3rtvpldcltga3glk3vf13q3k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
