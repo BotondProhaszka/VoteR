@@ -14,7 +14,7 @@
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
         <item name="fontFamily">sans-serif-condensed-medium</item>
-<!--        <item name="buttonStyle">@style/Theme.VoteR.Button</item> -->
+        <!--        <item name="buttonStyle">@style/Theme.VoteR.Button</item> -->
     </style>
 
     <style name="Username" parent="Theme.VoteR">
@@ -23,7 +23,7 @@
 
     <style name="Theme.VoteR.Dialog" parent="Theme.AppCompat.Dialog">
         <item name="android:background">@color/secondaryColor</item>
-<!--        <item name="buttonStyle">@style/Theme.VoteR.Button</item>-->
+        <!--        <item name="buttonStyle">@style/Theme.VoteR.Button</item>-->
     </style>
 
     <style name="Theme.VoteR.Button" parent="@android:style/Widget.Button">
@@ -32,5 +32,14 @@
         <item name="android:background">@color/primaryColor</item>
         <item name="android:textColor">@color/primaryTextColor</item>
     </style>
+
+    <style name="Theme.VoteR.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.VoteR.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.VoteR.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>

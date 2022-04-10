@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="hu.bme.aut.voter.activities.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        android:name="hu.bme.aut.voter.fragments.JoinVoteFragment"
+        android:label="@string/join_vote"
+        tools:layout="@layout/fragment_join_vote" />
 
     <fragment
         android:id="@+id/nav_gallery"
-        android:name="hu.bme.aut.voter.activities.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:name="hu.bme.aut.voter.fragments.CreateVoteFragment"
+        android:label="@string/create_vote"
+        tools:layout="@layout/fragment_create_vote" />
 
     <fragment
         android:id="@+id/nav_slideshow"
-        android:name="hu.bme.aut.voter.activities.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:name="hu.bme.aut.voter.fragments.DrawFragment"
+        android:label="@string/draw"
+        tools:layout="@layout/fragment_draw" />
 </navigation>

@@ -23,4 +23,9 @@
     <string name="vote">Vote</string>
     <string name="draw">Draw</string>
     <string name="lorem_ipsum">Lorem ipsum</string>
+    <string name="join_vote">Join vote</string>
+    <string name="create_vote">Create vote</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>
