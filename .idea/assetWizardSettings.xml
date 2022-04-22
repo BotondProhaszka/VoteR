@@ -325,7 +325,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialiconsround/exit_to_app/round_exit_to_app_24.xml" />
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialiconsoutlined/lock/outline_lock_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -335,8 +335,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="assetSourceType" value="FILE" />
-                            <entry key="outputName" value="ic_strategy_game_96_xxxhdpi" />
+                            <entry key="opacityPercent" value="70" />
+                            <entry key="outputName" value="ic_outline_lock_24" />
                             <entry key="sourceFile" value="C:\Users\ProhaszkaBotond\Downloads\icons8-strategy-game-96-xxxhdpi.svg" />
                           </map>
                         </option>

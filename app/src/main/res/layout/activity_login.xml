@@ -3,47 +3,79 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activities.LoginActivity">
+    android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/tvLogIn"
+        android:id="@+id/tvVoter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/login"
-        app:layout_constraintBottom_toTopOf="@+id/tvOr"
+        android:layout_marginVertical="@dimen/large_vertical_margin"
+        android:paddingVertical="@dimen/large_padding"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:text="@string/app_name"
+        app:layout_constraintBottom_toTopOf="@+id/glh025"
         app:layout_constraintEnd_toStartOf="@+id/glV85"
         app:layout_constraintStart_toStartOf="@+id/glV15"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/emailField"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:hint="@string/email"
+        app:endIconMode="clear_text"
+        app:layout_constraintEnd_toStartOf="@+id/glV85"
+        app:layout_constraintStart_toStartOf="@+id/glV15"
+        app:layout_constraintTop_toBottomOf="@+id/tvOr"
+        app:startIconDrawable="@drawable/ic_email_24">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_margin="10dp"
+        android:id="@+id/passwordField"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/password"
+        app:startIconDrawable="@drawable/ic_lock_24"
+        app:endIconMode="password_toggle"
+        app:layout_constraintEnd_toStartOf="@+id/glV85"
+        app:layout_constraintStart_toStartOf="@+id/glV15"
+        app:layout_constraintTop_toBottomOf="@+id/emailField">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/btnGoogleLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/glH6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvOr" />
-
-    <Button
-        android:id="@+id/btnLogOut"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Log Out"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnGoogleLogin" />
+        app:layout_constraintTop_toTopOf="@+id/glh025" />
 
     <Button
         android:id="@+id/btnLogInGuest"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/as_guest"
-        app:layout_constraintBottom_toTopOf="@+id/tvOr"
-        app:layout_constraintEnd_toStartOf="@+id/glV85"
-        app:layout_constraintStart_toStartOf="@+id/glV15"
-        app:layout_constraintTop_toBottomOf="@+id/tvLogIn" />
+        app:layout_constraintBottom_toTopOf="@+id/glH6"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnGoogleLogin" />
 
 
     <View
@@ -62,6 +94,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
+        android:paddingVertical="@dimen/large_padding"
         android:text="@string/or"
         app:layout_constraintBottom_toBottomOf="@id/glH6"
         app:layout_constraintEnd_toEndOf="@id/glV5"
@@ -69,6 +102,7 @@
         app:layout_constraintTop_toTopOf="@id/glH6" />
 
     <View
+        android:id="@+id/view"
         android:layout_width="0dp"
         android:layout_height="2dp"
         android:layout_marginStart="5dp"
@@ -106,5 +140,32 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/glh025"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25" />
+
+    <Button
+        android:id="@+id/bntLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/login"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/glV85"
+        app:layout_constraintStart_toStartOf="@+id/glV15"
+        app:layout_constraintTop_toBottomOf="@+id/passwordField" />
+
+    <TextView
+        android:id="@+id/tvCreateAcc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/create_account"
+        app:layout_constraintBottom_toTopOf="@+id/bntLogin"
+        app:layout_constraintEnd_toStartOf="@+id/glV5"
+        app:layout_constraintStart_toStartOf="@+id/glV5"
+        app:layout_constraintTop_toBottomOf="@+id/passwordField" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
