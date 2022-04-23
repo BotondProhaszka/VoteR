@@ -28,10 +28,11 @@
         app:endIconMode="clear_text"
         app:layout_constraintEnd_toStartOf="@+id/glV85"
         app:layout_constraintStart_toStartOf="@+id/glV15"
-        app:layout_constraintTop_toBottomOf="@+id/tvOr"
+        app:layout_constraintTop_toTopOf="@+id/glh025"
         app:startIconDrawable="@drawable/ic_email_24">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress" />
@@ -51,6 +52,7 @@
         app:layout_constraintTop_toBottomOf="@+id/emailField">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword" />
@@ -62,10 +64,9 @@
         android:id="@+id/btnGoogleLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/glH6"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/glh025" />
+        app:layout_constraintTop_toBottomOf="@+id/tvOr" />
 
     <Button
         android:id="@+id/btnLogInGuest"
@@ -149,23 +150,30 @@
         app:layout_constraintGuide_percent="0.25" />
 
     <Button
-        android:id="@+id/bntLogin"
+        android:id="@+id/btnLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/login"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/glV85"
-        app:layout_constraintStart_toStartOf="@+id/glV15"
+        app:layout_constraintStart_toStartOf="@+id/glV5"
         app:layout_constraintTop_toBottomOf="@+id/passwordField" />
 
     <TextView
-        android:id="@+id/tvCreateAcc"
+        android:id="@+id/tvForgotPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/create_account"
-        app:layout_constraintBottom_toTopOf="@+id/bntLogin"
+        android:text="@string/forgot_password"
         app:layout_constraintEnd_toStartOf="@+id/glV5"
         app:layout_constraintStart_toStartOf="@+id/glV5"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+
+    <Button
+        android:id="@+id/btnRegister"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sign_in"
+        app:layout_constraintEnd_toStartOf="@+id/glV5"
+        app:layout_constraintStart_toStartOf="@+id/glV15"
         app:layout_constraintTop_toBottomOf="@+id/passwordField" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

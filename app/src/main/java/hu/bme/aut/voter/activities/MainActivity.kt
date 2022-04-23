@@ -6,7 +6,6 @@ import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.Menu
 import android.widget.ImageView
 import android.widget.TextView
@@ -20,10 +19,12 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import hu.bme.aut.voter.R
 import hu.bme.aut.voter.databinding.ActivityMainBinding
 import hu.bme.aut.voter.model.GuestUser
-import hu.bme.aut.voter.model.LoggedInUser
+import hu.bme.aut.voter.model.GoogleUser
 import hu.bme.aut.voter.model.User
 import java.lang.Exception
 import java.util.concurrent.Executors
@@ -84,7 +85,7 @@ class MainActivity : AppCompatActivity() {
             val header = navView.getHeaderView(0)
             when (intent.getBooleanExtra(TAG_IS_ANONYMOUS_USER, true)) {
                 false -> {
-                    val loggedInUser = LoggedInUser(
+                    val loggedInUser = GoogleUser(
                         intent.getStringExtra(TAG_DISPLAY_NAME).toString(),
                         intent.getStringExtra(TAG_EMAIL).toString(),
                         intent.getStringExtra(TAG_PROFILE_PIC_URL).toString()
@@ -113,6 +114,7 @@ class MainActivity : AppCompatActivity() {
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
             .build()
+        Firebase.auth.signOut()
         val mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
         mGoogleSignInClient.signOut()
             .addOnCompleteListener(this) {

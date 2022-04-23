@@ -1,5 +1,7 @@
 package hu.bme.aut.voter.model
-abstract class User (var displayName: String, var email: String = "Anonymous"){
 
+import java.io.Serializable
+
+abstract class User (var displayName: String = "") : Serializable{
     abstract fun hasRightCreatePoll(): Boolean
 }

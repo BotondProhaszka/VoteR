@@ -15,9 +15,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import hu.bme.aut.voter.R
 import hu.bme.aut.voter.databinding.ActivityLoginBinding
-import hu.bme.aut.voter.dialog.CreateEmailAccDialog
 import hu.bme.aut.voter.dialog.LoginAsGuestDialog
+import hu.bme.aut.voter.model.EmailUser
 
 
 class LoginActivity : AppCompatActivity() {
@@ -28,7 +29,6 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var mGoogleSignInClient: GoogleSignInClient
     private lateinit var auth: FirebaseAuth
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,7 +45,9 @@ class LoginActivity : AppCompatActivity() {
 
         binding.btnGoogleLogin.setOnClickListener { googleSignIn() }
         binding.btnLogInGuest.setOnClickListener { loginAsGuest() }
-        binding.tvCreateAcc.setOnClickListener{ registrateEmail() }
+        binding.btnRegister.setOnClickListener { registerEmail() }
+        binding.btnLogin.setOnClickListener { emailLogin() }
+        binding.tvForgotPassword.setOnClickListener { forgotPassword() }
 
     }
 
@@ -57,8 +59,8 @@ class LoginActivity : AppCompatActivity() {
         }
 
         val emailAccount = auth.currentUser
-        if(emailAccount != null){
-            emailLoginSuccess(emailAccount);
+        if (emailAccount != null) {
+            emailLoginSuccess(emailAccount)
         }
 
 
@@ -100,10 +102,11 @@ class LoginActivity : AppCompatActivity() {
     private fun emailLoginSuccess(currentUser: FirebaseUser?) {
         if (currentUser == null)
             return
-        Toast.makeText(this, "Logged in as ${currentUser.displayName}", Toast.LENGTH_SHORT).show()
+        val username = resources.getStringArray(R.array.usernames).random()
+        val user = EmailUser(username, currentUser.email.toString())
+        Toast.makeText(this, "Logged in as $username", Toast.LENGTH_SHORT).show()
         val intent = Intent(this, MainActivity::class.java)
-        intent.putExtra(MainActivity.TAG_IS_ANONYMOUS_USER, false)
-        intent.putExtra(MainActivity.TAG_DISPLAY_NAME, currentUser.displayName.toString())
+        intent.putExtra("asd", user)
         intent.putExtra(MainActivity.TAG_EMAIL, currentUser.email.toString())
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
@@ -114,8 +117,9 @@ class LoginActivity : AppCompatActivity() {
         startActivity(Intent(this, LoginAsGuestDialog::class.java))
     }
 
-    private fun registrateEmail(){
-        startActivity(Intent(this, CreateEmailAccDialog::class.java))
+    private fun registerEmail() {
+        if (checkFields())
+            onEmailUserCreated()
     }
 
     private fun googleSignIn() {
@@ -124,8 +128,11 @@ class LoginActivity : AppCompatActivity() {
     }
 
 
-    fun emailReg(displayName: String, email: String, password: String){
-        auth.createUserWithEmailAndPassword(email, password)
+    private fun onEmailUserCreated() {
+        auth.createUserWithEmailAndPassword(
+            binding.etEmail.text.toString(),
+            binding.etPassword.text.toString()
+        )
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
@@ -135,10 +142,52 @@ class LoginActivity : AppCompatActivity() {
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                    Toast.makeText(baseContext, "Authentication failed.",
-                        Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        baseContext, "Authentication failed.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                 }
             }
     }
 
+    private fun checkFields(): Boolean {
+        val result = binding.etEmail.text != null &&
+                binding.etPassword.text != null
+        if (result)
+            return true
+        else
+            Toast.makeText(this, "Type your email and password", Toast.LENGTH_SHORT).show()
+        return false
+    }
+
+    private fun emailLogin() {
+        auth.signInWithEmailAndPassword(
+            binding.etEmail.text.toString(),
+            binding.etPassword.text.toString()
+        )
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(TAG, "signInWithEmail:success")
+                    val user = auth.currentUser
+                    emailLoginSuccess(user)
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(TAG, "signInWithEmail:failure", task.exception)
+                    Toast.makeText(
+                        baseContext, "Authentication failed.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+    }
+
+    private fun forgotPassword() {
+        if (binding.etEmail.text.isNullOrEmpty())
+            Toast.makeText(this, "Please, type your email address!", Toast.LENGTH_SHORT).show()
+        else {
+            Firebase.auth.sendPasswordResetEmail(binding.etEmail.text.toString())
+            Toast.makeText(this, "Email send!", Toast.LENGTH_SHORT).show()
+        }
+    }
 }
