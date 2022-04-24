@@ -68,7 +68,7 @@ class LoginActivity : AppCompatActivity() {
         binding.btnRegister.setOnClickListener { registerEmail() }
         binding.btnLogin.setOnClickListener { emailLogin() }
         binding.tvForgotPassword.setOnClickListener { forgotPassword() }
-        binding.etEmail.setOnFocusChangeListener{ view, b ->
+        binding.etEmail.setOnFocusChangeListener{ _, b ->
             if(!b)
                 binding.etEmail.setText(
                     binding.etEmail.text.toString().replace(" ", "")

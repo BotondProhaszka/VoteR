@@ -25,10 +25,6 @@ import com.google.firebase.ktx.Firebase
 import hu.bme.aut.voter.R
 import hu.bme.aut.voter.databinding.ActivityMainBinding
 import hu.bme.aut.voter.interfaces.UserInterface
-import hu.bme.aut.voter.model.EmailUser
-import hu.bme.aut.voter.model.GuestUser
-import hu.bme.aut.voter.model.GoogleUser
-import hu.bme.aut.voter.model.User
 import java.lang.Exception
 import java.util.concurrent.Executors
 
