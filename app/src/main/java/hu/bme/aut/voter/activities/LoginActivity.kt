@@ -19,6 +19,7 @@ import hu.bme.aut.voter.R
 import hu.bme.aut.voter.databinding.ActivityLoginBinding
 import hu.bme.aut.voter.dialog.LoginAsGuestDialog
 import hu.bme.aut.voter.model.EmailUser
+import hu.bme.aut.voter.model.GoogleUser
 
 
 class LoginActivity : AppCompatActivity() {
@@ -35,20 +36,8 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        auth = Firebase.auth
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestEmail()
-            .build()
-
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
-
-        binding.btnGoogleLogin.setOnClickListener { googleSignIn() }
-        binding.btnLogInGuest.setOnClickListener { loginAsGuest() }
-        binding.btnRegister.setOnClickListener { registerEmail() }
-        binding.btnLogin.setOnClickListener { emailLogin() }
-        binding.tvForgotPassword.setOnClickListener { forgotPassword() }
-
+        initLoginServices()
+        initButtons()
     }
 
     override fun onStart() {
@@ -62,8 +51,6 @@ class LoginActivity : AppCompatActivity() {
         if (emailAccount != null) {
             emailLoginSuccess(emailAccount)
         }
-
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -73,6 +60,28 @@ class LoginActivity : AppCompatActivity() {
             val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
             googleHandleSignInResult(task)
         }
+    }
+
+    private fun initButtons() {
+        binding.btnGoogleLogin.setOnClickListener { googleSignIn() }
+        binding.btnLogInGuest.setOnClickListener { loginAsGuest() }
+        binding.btnRegister.setOnClickListener { registerEmail() }
+        binding.btnLogin.setOnClickListener { emailLogin() }
+        binding.tvForgotPassword.setOnClickListener { forgotPassword() }
+        binding.etEmail.setOnFocusChangeListener{ view, b ->
+            if(!b)
+                binding.etEmail.setText(
+                    binding.etEmail.text.toString().replace(" ", "")
+                )
+        }
+    }
+
+    private fun initLoginServices() {
+        auth = Firebase.auth
+        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+            .requestEmail()
+            .build()
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
     }
 
     private fun googleHandleSignInResult(completedTask: Task<GoogleSignInAccount>) {
@@ -90,10 +99,14 @@ class LoginActivity : AppCompatActivity() {
             return
         Toast.makeText(this, "Logged in as ${currentUser.displayName}", Toast.LENGTH_SHORT).show()
         val intent = Intent(this, MainActivity::class.java)
-        intent.putExtra(MainActivity.TAG_IS_ANONYMOUS_USER, false)
-        intent.putExtra(MainActivity.TAG_DISPLAY_NAME, currentUser.displayName.toString())
-        intent.putExtra(MainActivity.TAG_EMAIL, currentUser.email.toString())
-        intent.putExtra(MainActivity.TAG_PROFILE_PIC_URL, currentUser.photoUrl.toString())
+        intent.putExtra(
+            MainActivity.TAG_USER,
+            GoogleUser(
+                currentUser.displayName.toString(),
+                currentUser.email.toString(),
+                currentUser.photoUrl.toString()
+            )
+        )
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
         this.finish()
@@ -103,11 +116,9 @@ class LoginActivity : AppCompatActivity() {
         if (currentUser == null)
             return
         val username = resources.getStringArray(R.array.usernames).random()
-        val user = EmailUser(username, currentUser.email.toString())
         Toast.makeText(this, "Logged in as $username", Toast.LENGTH_SHORT).show()
         val intent = Intent(this, MainActivity::class.java)
-        intent.putExtra("asd", user)
-        intent.putExtra(MainActivity.TAG_EMAIL, currentUser.email.toString())
+        intent.putExtra(MainActivity.TAG_USER, EmailUser(username, currentUser.email.toString()))
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
         this.finish()
@@ -118,7 +129,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun registerEmail() {
-        if (checkFields())
+        if (checkEmailFields())
             onEmailUserCreated()
     }
 
@@ -150,7 +161,7 @@ class LoginActivity : AppCompatActivity() {
             }
     }
 
-    private fun checkFields(): Boolean {
+    private fun checkEmailFields(): Boolean {
         val result = binding.etEmail.text != null &&
                 binding.etPassword.text != null
         if (result)

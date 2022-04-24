@@ -7,11 +7,11 @@
 
     <TextView
         android:id="@+id/tvVoter"
+        style="@style/TextAppearance.AppCompat.Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginVertical="@dimen/large_vertical_margin"
         android:paddingVertical="@dimen/large_padding"
-        style="@style/TextAppearance.AppCompat.Title"
         android:text="@string/app_name"
         app:layout_constraintBottom_toTopOf="@+id/glh025"
         app:layout_constraintEnd_toStartOf="@+id/glV85"
@@ -22,12 +22,12 @@
         android:id="@+id/emailField"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_marginHorizontal="@dimen/large_vertical_margin"
+        android:layout_marginVertical="@dimen/default_vertical_margin"
         android:hint="@string/email"
         app:endIconMode="clear_text"
-        app:layout_constraintEnd_toStartOf="@+id/glV85"
-        app:layout_constraintStart_toStartOf="@+id/glV15"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/glh025"
         app:startIconDrawable="@drawable/ic_email_24">
 
@@ -40,16 +40,17 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_margin="10dp"
         android:id="@+id/passwordField"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/large_horizontal_margin"
+        android:layout_marginVertical="@dimen/large_vertical_margin"
         android:hint="@string/password"
-        app:startIconDrawable="@drawable/ic_lock_24"
         app:endIconMode="password_toggle"
-        app:layout_constraintEnd_toStartOf="@+id/glV85"
-        app:layout_constraintStart_toStartOf="@+id/glV15"
-        app:layout_constraintTop_toBottomOf="@+id/emailField">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emailField"
+        app:startIconDrawable="@drawable/ic_lock_24">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etPassword"
@@ -73,9 +74,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/as_guest"
-        app:layout_constraintBottom_toTopOf="@+id/glH6"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/glV85"
+        app:layout_constraintStart_toStartOf="@+id/glV15"
         app:layout_constraintTop_toBottomOf="@+id/btnGoogleLogin" />
 
 
@@ -84,10 +84,10 @@
         android:layout_height="2dp"
         android:layout_marginEnd="5dp"
         android:background="@android:color/darker_gray"
-        app:layout_constraintBottom_toTopOf="@+id/glH6"
+        app:layout_constraintBottom_toTopOf="@+id/glH7"
         app:layout_constraintEnd_toStartOf="@+id/tvOr"
         app:layout_constraintStart_toStartOf="@+id/glV15"
-        app:layout_constraintTop_toTopOf="@+id/glH6" />
+        app:layout_constraintTop_toTopOf="@+id/glH7" />
 
 
     <TextView
@@ -97,10 +97,10 @@
         android:layout_margin="20dp"
         android:paddingVertical="@dimen/large_padding"
         android:text="@string/or"
-        app:layout_constraintBottom_toBottomOf="@id/glH6"
+        app:layout_constraintBottom_toBottomOf="@id/glH7"
         app:layout_constraintEnd_toEndOf="@id/glV5"
         app:layout_constraintStart_toEndOf="@id/glV5"
-        app:layout_constraintTop_toTopOf="@id/glH6" />
+        app:layout_constraintTop_toTopOf="@id/glH7" />
 
     <View
         android:id="@+id/view"
@@ -108,10 +108,10 @@
         android:layout_height="2dp"
         android:layout_marginStart="5dp"
         android:background="@android:color/darker_gray"
-        app:layout_constraintBottom_toTopOf="@+id/glH6"
+        app:layout_constraintBottom_toTopOf="@+id/glH7"
         app:layout_constraintEnd_toStartOf="@+id/glV85"
         app:layout_constraintStart_toEndOf="@+id/tvOr"
-        app:layout_constraintTop_toTopOf="@+id/glH6" />
+        app:layout_constraintTop_toTopOf="@+id/glH7" />
 
 
     <androidx.constraintlayout.widget.Guideline
@@ -129,11 +129,11 @@
         app:layout_constraintGuide_percent="0.85" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/glH6"
+        android:id="@+id/glH7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.6" />
+        app:layout_constraintGuide_percent="0.7" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/glV5"
@@ -153,6 +153,8 @@
         android:id="@+id/btnLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/large_vertical_margin"
+        android:layout_marginVertical="@dimen/default_vertical_margin"
         android:text="@string/login"
         app:layout_constraintEnd_toStartOf="@+id/glV85"
         app:layout_constraintStart_toStartOf="@+id/glV5"
@@ -163,14 +165,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/forgot_password"
+        app:layout_constraintBottom_toTopOf="@+id/tvOr"
         app:layout_constraintEnd_toStartOf="@+id/glV5"
-        app:layout_constraintStart_toStartOf="@+id/glV5"
-        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+        app:layout_constraintStart_toStartOf="@+id/glV5" />
 
     <Button
         android:id="@+id/btnRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/large_vertical_margin"
+        android:layout_marginVertical="@dimen/default_vertical_margin"
         android:text="@string/sign_in"
         app:layout_constraintEnd_toStartOf="@+id/glV5"
         app:layout_constraintStart_toStartOf="@+id/glV15"

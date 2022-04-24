@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import hu.bme.aut.voter.activities.MainActivity
 import hu.bme.aut.voter.databinding.ActivityLoginAsGuestBinding
+import hu.bme.aut.voter.model.GuestUser
 
 class LoginAsGuestDialog : AppCompatActivity() {
 
@@ -27,8 +28,7 @@ class LoginAsGuestDialog : AppCompatActivity() {
 
     private fun login(){
         val intent = Intent(this, MainActivity::class.java)
-        intent.putExtra(MainActivity.TAG_IS_ANONYMOUS_USER, true)
-        intent.putExtra(MainActivity.TAG_DISPLAY_NAME, binding.etUsername.text.toString())
+        intent.putExtra(MainActivity.TAG_USER, GuestUser(binding.etUsername.text.toString()))
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
         this.finish()

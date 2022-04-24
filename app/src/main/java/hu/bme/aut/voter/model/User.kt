@@ -1,7 +1,9 @@
 package hu.bme.aut.voter.model
 
+import hu.bme.aut.voter.interfaces.UserInterface
 import java.io.Serializable
 
-abstract class User (var displayName: String = "") : Serializable{
-    abstract fun hasRightCreatePoll(): Boolean
+abstract class User (private var displayName: String = "") : Serializable, UserInterface{
+    abstract override fun hasRightCreatePoll(): Boolean
+    override fun getDisplayName(): String = displayName
 }

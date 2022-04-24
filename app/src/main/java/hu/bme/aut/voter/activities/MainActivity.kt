@@ -9,6 +9,7 @@ import android.os.Looper
 import android.view.Menu
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -23,6 +24,8 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import hu.bme.aut.voter.R
 import hu.bme.aut.voter.databinding.ActivityMainBinding
+import hu.bme.aut.voter.interfaces.UserInterface
+import hu.bme.aut.voter.model.EmailUser
 import hu.bme.aut.voter.model.GuestUser
 import hu.bme.aut.voter.model.GoogleUser
 import hu.bme.aut.voter.model.User
@@ -35,37 +38,16 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     companion object {
-        const val TAG_IS_ANONYMOUS_USER = "TAG_IS_ANONYMOUS_USER"
-        const val TAG_DISPLAY_NAME = "TAG_DISPLAY_NAME"
-        const val TAG_EMAIL = "TAG_EMAIL"
-        const val TAG_PROFILE_PIC_URL = "TAG_PROFILE_PIC_URL"
-        lateinit var user: User
+        const val TAG_USER = "TAG_USER"
+        lateinit var user: UserInterface
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-
-
-
         setSupportActionBar(binding.appBarMain.toolbar)
-
-        val drawerLayout: DrawerLayout = binding.drawerLayout
-        val navView: NavigationView = binding.navView
-        val navController = findNavController(R.id.nav_host_fragment_content_main)
-        // Passing each menu ID as a set of Ids because each
-        // menu should be considered as top level destinations.
-        appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow
-            ), drawerLayout
-        )
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
-
+        val navView = initNavView()
         initUser(navView)
     }
 
@@ -83,38 +65,38 @@ class MainActivity : AppCompatActivity() {
     private fun initUser(navView: NavigationView) {
         try {
             val header = navView.getHeaderView(0)
-            when (intent.getBooleanExtra(TAG_IS_ANONYMOUS_USER, true)) {
-                false -> {
-                    val loggedInUser = GoogleUser(
-                        intent.getStringExtra(TAG_DISPLAY_NAME).toString(),
-                        intent.getStringExtra(TAG_EMAIL).toString(),
-                        intent.getStringExtra(TAG_PROFILE_PIC_URL).toString()
-                    )
-
-
-                    downloadImage(header.findViewById(R.id.ivProfile), loggedInUser.picUri)
-                    header.findViewById<TextView>(R.id.tvDisplayName).text =
-                        loggedInUser.displayName
-                    header.findViewById<TextView>(R.id.tvEmail).text = loggedInUser.email
-                    header.findViewById<ImageView>(R.id.ivLogout).setOnClickListener { logout() }
-                }
-                else -> {
-                    GuestUser(intent.getStringExtra(TAG_DISPLAY_NAME).toString())
-
-                }
-            }
+            user = intent.extras?.get(TAG_USER) as UserInterface
+            header.findViewById<TextView>(R.id.tvDisplayName).text = user.getDisplayName()
+            header.findViewById<TextView>(R.id.tvEmail).text = user.getEmail()
+            user.getPhotoUri()?.let { downloadImage(header.findViewById(R.id.ivProfile), it) }
             header.findViewById<ImageView>(R.id.ivLogout).setOnClickListener { logout() }
         } catch (e: Exception) {
-
+            Toast.makeText(this, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
         }
 
     }
 
+    private fun initNavView() : NavigationView{
+        val drawerLayout: DrawerLayout = binding.drawerLayout
+        val navView: NavigationView = binding.navView
+        val navController = findNavController(R.id.nav_host_fragment_content_main)
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow
+            ), drawerLayout
+        )
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        navView.setupWithNavController(navController)
+        return navView
+    }
+
     private fun logout() {
+        Firebase.auth.signOut()
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestEmail()
             .build()
-        Firebase.auth.signOut()
         val mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
         mGoogleSignInClient.signOut()
             .addOnCompleteListener(this) {
@@ -128,7 +110,7 @@ class MainActivity : AppCompatActivity() {
     private fun downloadImage(imageView: ImageView, imageURL: String) {
         val executor = Executors.newSingleThreadExecutor()
         val handler = Handler(Looper.getMainLooper())
-        var image: Bitmap? = null
+        var image: Bitmap?
 
         executor.execute {
             try {
