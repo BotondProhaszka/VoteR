@@ -7,11 +7,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -20,16 +15,15 @@ import hu.bme.aut.voter.databinding.ActivityLoginBinding
 import hu.bme.aut.voter.dialog.LoginAsGuestDialog
 import hu.bme.aut.voter.model.EmailUser
 import hu.bme.aut.voter.model.GoogleUser
+import hu.bme.aut.voter.services.EmailLoginService
+import hu.bme.aut.voter.services.GoogleLoginService
 
 
 class LoginActivity : AppCompatActivity() {
 
-    private var RC_SIGN_IN: Int = 0
-    private val TAG = "BUGFIX"
-
     private lateinit var binding: ActivityLoginBinding
-    private lateinit var mGoogleSignInClient: GoogleSignInClient
-    private lateinit var auth: FirebaseAuth
+    private lateinit var googleLoginService: GoogleLoginService
+    private lateinit var emailLoginService: EmailLoginService
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,34 +36,20 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        val googleAccount = GoogleSignIn.getLastSignedInAccount(this)
-        if (googleAccount != null) {
-            googleLoginSuccess(googleAccount)
-        }
+        googleLoginService.getLastSignedInAccount()?.let { googleLoginSuccess(it) }
 
-        val emailAccount = auth.currentUser
-        if (emailAccount != null) {
-            emailLoginSuccess(emailAccount)
-        }
+        emailLoginService.getLastSignedInAccount()?.let { emailLoginSuccess(it) }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == RC_SIGN_IN) {
-            val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
-            googleHandleSignInResult(task)
-        }
-    }
 
     private fun initButtons() {
-        binding.btnGoogleLogin.setOnClickListener { googleSignIn() }
+        binding.btnGoogleLogin.setOnClickListener { googleLoginService.signIn() }
         binding.btnLogInGuest.setOnClickListener { loginAsGuest() }
         binding.btnRegister.setOnClickListener { registerEmail() }
         binding.btnLogin.setOnClickListener { emailLogin() }
         binding.tvForgotPassword.setOnClickListener { forgotPassword() }
-        binding.etEmail.setOnFocusChangeListener{ _, b ->
-            if(!b)
+        binding.etEmail.setOnFocusChangeListener { _, b ->
+            if (!b)
                 binding.etEmail.setText(
                     binding.etEmail.text.toString().replace(" ", "")
                 )
@@ -77,24 +57,13 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun initLoginServices() {
-        auth = Firebase.auth
-        val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-            .requestEmail()
-            .build()
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso)
+        googleLoginService = GoogleLoginService(this)
+        emailLoginService = EmailLoginService(this)
+
     }
 
-    private fun googleHandleSignInResult(completedTask: Task<GoogleSignInAccount>) {
-        try {
-            val account = completedTask.getResult(ApiException::class.java)
-            googleLoginSuccess(account)
-            Log.d(TAG, "SIGNED IN ${account.displayName}")
-        } catch (e: ApiException) {
-            Log.w(TAG, "signInResult:failed code=" + e.statusCode)
-        }
-    }
 
-    private fun googleLoginSuccess(currentUser: GoogleSignInAccount?) {
+    fun googleLoginSuccess(currentUser: GoogleSignInAccount?) {
         if (currentUser == null)
             return
         Toast.makeText(this, "Logged in as ${currentUser.displayName}", Toast.LENGTH_SHORT).show()
@@ -112,7 +81,7 @@ class LoginActivity : AppCompatActivity() {
         this.finish()
     }
 
-    private fun emailLoginSuccess(currentUser: FirebaseUser?) {
+    fun emailLoginSuccess(currentUser: FirebaseUser?) {
         if (currentUser == null)
             return
         val username = resources.getStringArray(R.array.usernames).random()
@@ -128,48 +97,12 @@ class LoginActivity : AppCompatActivity() {
         startActivity(Intent(this, LoginAsGuestDialog::class.java))
     }
 
-    private fun registerEmail() {
-        if (checkEmailFields())
-            onEmailUserCreated()
-    }
-
-    private fun googleSignIn() {
-        val signInIntent: Intent = mGoogleSignInClient.signInIntent
-        startActivityForResult(signInIntent, RC_SIGN_IN)
-    }
 
 
-    private fun onEmailUserCreated() {
-        auth.createUserWithEmailAndPassword(
-            binding.etEmail.text.toString(),
-            binding.etPassword.text.toString()
-        )
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d(TAG, "createUserWithEmail:success")
-                    val user = auth.currentUser
-                    emailLoginSuccess(user)
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                    Toast.makeText(
-                        baseContext, "Authentication failed.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-    }
 
-    private fun checkEmailFields(): Boolean {
-        val result = binding.etEmail.text != null &&
-                binding.etPassword.text != null
-        if (result)
-            return true
-        else
-            Toast.makeText(this, "Type your email and password", Toast.LENGTH_SHORT).show()
-        return false
-    }
+
+
+
 
     private fun emailLogin() {
         auth.signInWithEmailAndPassword(

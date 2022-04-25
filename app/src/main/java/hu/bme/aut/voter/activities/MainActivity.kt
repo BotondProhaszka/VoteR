@@ -18,6 +18,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.children
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.ktx.auth
@@ -35,6 +36,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         const val TAG_USER = "TAG_USER"
+        const val TAG_BUGFIX = "BUGFIX"
         lateinit var user: UserInterface
     }
 
@@ -80,7 +82,7 @@ class MainActivity : AppCompatActivity() {
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
             setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow
+                R.id.nav_join_vote, R.id.nav_create_vote, R.id.nav_draw
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
