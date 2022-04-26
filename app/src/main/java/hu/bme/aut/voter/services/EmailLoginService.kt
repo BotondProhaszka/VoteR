@@ -2,6 +2,8 @@ package hu.bme.aut.voter.services
 
 import android.util.Log
 import android.widget.Toast
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -26,54 +28,11 @@ class EmailLoginService(private val activity: LoginActivity) {
 
 
     fun registerEmail(email: String, password: String) {
-        auth.createUserWithEmailAndPassword(
-            email,
-            password
-        )
-            .addOnCompleteListener(activity) { task ->
-                if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d(MainActivity.TAG_BUGFIX, "createUserWithEmail:success")
-                    val user = auth.currentUser
-                    val username = activity.resources.getStringArray(R.array.usernames).random()
-                    user?.let {
-                        activity.emailLoginSuccess(EmailUser(username, it.email.toString()))
-                    }
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w(MainActivity.TAG_BUGFIX, "createUserWithEmail:failure", task.exception)
-                    Toast.makeText(
-                        activity, "Authentication failed.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
+        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(activity) { task -> listener(task) }
     }
 
     fun emailLogin(email: String, password: String) {
-        auth.signInWithEmailAndPassword(
-            email,
-            password
-        )
-            .addOnCompleteListener(activity) { task ->
-                if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d(MainActivity.TAG_BUGFIX, "signInWithEmail:success")
-                    val user = auth.currentUser
-                    val username = activity.resources.getStringArray(R.array.usernames).random()
-                    user?.let {
-                        activity.emailLoginSuccess(EmailUser(username, it.email.toString()))
-                    }
-
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w(MainActivity.TAG_BUGFIX, "signInWithEmail:failure", task.exception)
-                    Toast.makeText(
-                        activity, "Authentication failed.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
+        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(activity) { task -> listener(task) }
     }
 
     fun forgotPassword(email: String) {
@@ -82,6 +41,24 @@ class EmailLoginService(private val activity: LoginActivity) {
         else {
             Firebase.auth.sendPasswordResetEmail(email)
             Toast.makeText(activity, "Email send!", Toast.LENGTH_SHORT).show()
+        }
+    }
+    
+    private fun listener(task: Task<AuthResult>){
+        if (task.isSuccessful) {
+            Log.d(MainActivity.TAG_BUGFIX, "signInWithEmail:success")
+            val user = auth.currentUser
+            val username = activity.resources.getStringArray(R.array.usernames).random()
+            user?.let {
+                activity.emailLoginSuccess(EmailUser(username, it.email.toString()))
+            }
+
+        } else {
+            Log.w(MainActivity.TAG_BUGFIX, "signInWithEmail:failure", task.exception)
+            Toast.makeText(
+                activity, "Authentication failed.",
+                Toast.LENGTH_SHORT
+            ).show()
         }
     }
 }
