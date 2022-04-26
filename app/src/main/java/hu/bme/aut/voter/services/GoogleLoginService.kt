@@ -14,10 +14,10 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import hu.bme.aut.voter.activities.LoginActivity
 import hu.bme.aut.voter.activities.MainActivity
+import hu.bme.aut.voter.model.GoogleUser
 
 class GoogleLoginService(private val activity: LoginActivity) {
     private var mGoogleSignInClient: GoogleSignInClient
-    private val TAG = MainActivity.TAG_BUGFIX
     private var RC_SIGN_IN: Int = 0
 
 
@@ -33,17 +33,35 @@ class GoogleLoginService(private val activity: LoginActivity) {
         googleSignInResult.launch(signInIntent)
     }
 
-    fun getLastSignedInAccount() : GoogleSignInAccount? {
-        return GoogleSignIn.getLastSignedInAccount(activity)
+    fun getLastSignedInAccount(): GoogleUser? {
+        val account = GoogleSignIn.getLastSignedInAccount(activity)
+        account?.let {
+            return GoogleUser(
+                it.displayName.toString(),
+                it.email.toString(),
+                it.photoUrl.toString()
+            )
+        }
+        return null
     }
 
     private fun handleSignInResult(completedTask: Task<GoogleSignInAccount>) {
         try {
             val account = completedTask.getResult(ApiException::class.java)
-            activity.googleLoginSuccess(account)
-            Log.d(TAG, "SIGNED IN ${account.displayName}")
+            account?.let {
+                activity.googleLoginSuccess(
+                    GoogleUser(
+                        it.displayName.toString(),
+                        it.email.toString(),
+                        it.photoUrl.toString()
+                    )
+                )
+            }
+
+
+            Log.d(MainActivity.TAG_BUGFIX, "SIGNED IN ${account.displayName}")
         } catch (e: ApiException) {
-            Log.w(TAG, "signInResult:failed code=" + e.statusCode)
+            Log.w(MainActivity.TAG_BUGFIX, "signInResult:failed code=" + e.statusCode)
         }
     }
 

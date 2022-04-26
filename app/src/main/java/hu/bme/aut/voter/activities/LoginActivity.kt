@@ -24,6 +24,8 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private lateinit var googleLoginService: GoogleLoginService
     private lateinit var emailLoginService: EmailLoginService
+    private fun email() = binding.etEmail.text.toString()
+    private fun password() = binding.etPassword.text.toString()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,17 +39,20 @@ class LoginActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         googleLoginService.getLastSignedInAccount()?.let { googleLoginSuccess(it) }
-
         emailLoginService.getLastSignedInAccount()?.let { emailLoginSuccess(it) }
     }
 
+    private fun initLoginServices() {
+        googleLoginService = GoogleLoginService(this)
+        emailLoginService = EmailLoginService(this)
+    }
 
     private fun initButtons() {
         binding.btnGoogleLogin.setOnClickListener { googleLoginService.signIn() }
         binding.btnLogInGuest.setOnClickListener { loginAsGuest() }
-        binding.btnRegister.setOnClickListener { registerEmail() }
-        binding.btnLogin.setOnClickListener { emailLogin() }
-        binding.tvForgotPassword.setOnClickListener { forgotPassword() }
+        binding.btnRegister.setOnClickListener { emailLoginService.registerEmail(email(), password()) }
+        binding.btnLogin.setOnClickListener { emailLoginService.emailLogin(email(), password()) }
+        binding.tvForgotPassword.setOnClickListener { emailLoginService.forgotPassword(email()) }
         binding.etEmail.setOnFocusChangeListener { _, b ->
             if (!b)
                 binding.etEmail.setText(
@@ -56,38 +61,19 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    private fun initLoginServices() {
-        googleLoginService = GoogleLoginService(this)
-        emailLoginService = EmailLoginService(this)
-
-    }
-
-
-    fun googleLoginSuccess(currentUser: GoogleSignInAccount?) {
-        if (currentUser == null)
-            return
-        Toast.makeText(this, "Logged in as ${currentUser.displayName}", Toast.LENGTH_SHORT).show()
+    fun googleLoginSuccess(currentUser: GoogleUser) {
+        Toast.makeText(this, "Logged in as ${currentUser.getDisplayName()}", Toast.LENGTH_SHORT).show()
         val intent = Intent(this, MainActivity::class.java)
-        intent.putExtra(
-            MainActivity.TAG_USER,
-            GoogleUser(
-                currentUser.displayName.toString(),
-                currentUser.email.toString(),
-                currentUser.photoUrl.toString()
-            )
-        )
+        intent.putExtra(MainActivity.TAG_USER, currentUser)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
         this.finish()
     }
 
-    fun emailLoginSuccess(currentUser: FirebaseUser?) {
-        if (currentUser == null)
-            return
-        val username = resources.getStringArray(R.array.usernames).random()
-        Toast.makeText(this, "Logged in as $username", Toast.LENGTH_SHORT).show()
+    fun emailLoginSuccess(currentUser: EmailUser) {
+        Toast.makeText(this, "Logged in as ${currentUser.getDisplayName()}", Toast.LENGTH_SHORT).show()
         val intent = Intent(this, MainActivity::class.java)
-        intent.putExtra(MainActivity.TAG_USER, EmailUser(username, currentUser.email.toString()))
+        intent.putExtra(MainActivity.TAG_USER, currentUser)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(intent)
         this.finish()
@@ -97,41 +83,4 @@ class LoginActivity : AppCompatActivity() {
         startActivity(Intent(this, LoginAsGuestDialog::class.java))
     }
 
-
-
-
-
-
-
-
-    private fun emailLogin() {
-        auth.signInWithEmailAndPassword(
-            binding.etEmail.text.toString(),
-            binding.etPassword.text.toString()
-        )
-            .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d(TAG, "signInWithEmail:success")
-                    val user = auth.currentUser
-                    emailLoginSuccess(user)
-                } else {
-                    // If sign in fails, display a message to the user.
-                    Log.w(TAG, "signInWithEmail:failure", task.exception)
-                    Toast.makeText(
-                        baseContext, "Authentication failed.",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-    }
-
-    private fun forgotPassword() {
-        if (binding.etEmail.text.isNullOrEmpty())
-            Toast.makeText(this, "Please, type your email address!", Toast.LENGTH_SHORT).show()
-        else {
-            Firebase.auth.sendPasswordResetEmail(binding.etEmail.text.toString())
-            Toast.makeText(this, "Email send!", Toast.LENGTH_SHORT).show()
-        }
-    }
 }
