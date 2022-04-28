@@ -43,7 +43,7 @@ class EmailLoginService(private val activity: LoginActivity) {
             Toast.makeText(activity, "Email send!", Toast.LENGTH_SHORT).show()
         }
     }
-    
+
     private fun listener(task: Task<AuthResult>){
         if (task.isSuccessful) {
             Log.d(MainActivity.TAG_BUGFIX, "signInWithEmail:success")

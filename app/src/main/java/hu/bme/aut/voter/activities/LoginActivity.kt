@@ -2,19 +2,14 @@ package hu.bme.aut.voter.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.auth.api.signin.GoogleSignIn
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import hu.bme.aut.voter.R
 import hu.bme.aut.voter.databinding.ActivityLoginBinding
 import hu.bme.aut.voter.dialog.LoginAsGuestDialog
 import hu.bme.aut.voter.model.EmailUser
 import hu.bme.aut.voter.model.GoogleUser
+import hu.bme.aut.voter.model.GuestUser
 import hu.bme.aut.voter.services.EmailLoginService
 import hu.bme.aut.voter.services.GoogleLoginService
 
@@ -38,6 +33,11 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
+        val intent = Intent(this, MainActivity::class.java)
+        intent.putExtra(MainActivity.TAG_USER, GuestUser(resources.getStringArray(R.array.usernames).random()))
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
+        startActivity(intent)
+        this.finish()
         googleLoginService.getLastSignedInAccount()?.let { googleLoginSuccess(it) }
         emailLoginService.getLastSignedInAccount()?.let { emailLoginSuccess(it) }
     }
