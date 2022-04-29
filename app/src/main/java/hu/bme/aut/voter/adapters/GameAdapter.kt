@@ -17,7 +17,7 @@ class GameAdapter(val context: Context) : ListAdapter<Game, GameAdapter.ViewHold
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.game_row, parent, false)
-        return ViewHolder(view, context)
+        return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -25,7 +25,7 @@ class GameAdapter(val context: Context) : ListAdapter<Game, GameAdapter.ViewHold
         holder.bind(game)
     }
 
-    class ViewHolder(private val itemView: View,private val context: Context) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(private val itemView: View,) : RecyclerView.ViewHolder(itemView) {
         private val binding = GameRowBinding.bind(itemView)
 
         fun bind(item : Game) {
@@ -35,12 +35,12 @@ class GameAdapter(val context: Context) : ListAdapter<Game, GameAdapter.ViewHold
             binding.cbIsSelected.setOnClickListener {
                 item.gameIsSelected = binding.cbIsSelected.isChecked
                 thread {
-                    GameDatabase.getInstance(context).gameDao().update(item)
+                    GameDatabase.getInstance().gameDao().update(item)
                 }
             }
             binding.ivDelete.setOnClickListener{
                 thread {
-                    GameDatabase.getInstance(context).gameDao().deleteGame(item)
+                    GameDatabase.getInstance().gameDao().deleteGame(item)
                 }
             }
         }

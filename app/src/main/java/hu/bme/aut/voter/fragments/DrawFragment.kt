@@ -1,6 +1,7 @@
 package hu.bme.aut.voter.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import com.maltaisn.icondialog.IconDialog
 import com.maltaisn.icondialog.IconDialogSettings
 import com.maltaisn.icondialog.pack.IconPack
+import hu.bme.aut.voter.activities.MainActivity
 import hu.bme.aut.voter.adapters.GameAdapter
 import hu.bme.aut.voter.data.Game
 import hu.bme.aut.voter.data.GameDatabase
@@ -66,20 +68,21 @@ class DrawFragment() : Fragment(), IconDialog.Callback {
 
     private fun addGame() {
         val newGame = Game(null, binding.etGameName.text.toString(), true, "")
-        GameDatabase.getInstance(requireContext()).gameDao().insertGame(newGame)
+        GameDatabase.getInstance().gameDao().insertGame(newGame)
     }
 
     private fun initRecyclerView() {
         gameAdapter = GameAdapter(requireContext())
         binding.rvGame.adapter = gameAdapter
-        GameDatabase.getInstance(requireContext()).gameDao().getAllGames()
+        GameDatabase.getInstance().gameDao().getAllGames()
             .observe(this.requireActivity()) { todos ->
+                Log.d(MainActivity.TAG_BUGFIX, this.requireActivity().toString())
                 gameAdapter.submitList(todos)
             }
     }
 
     private fun draw() {
-        val selectedGames = GameDatabase.getInstance(requireContext()).gameDao().getSelectedGames()
+        val selectedGames = GameDatabase.getInstance().gameDao().getSelectedGames()
 
         this.requireActivity().runOnUiThread {
 

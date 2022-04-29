@@ -17,9 +17,6 @@
     </style>
 
 
-
-
-
     <style name="Theme.VoteR.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.VoteR.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />

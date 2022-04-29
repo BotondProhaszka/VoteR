@@ -41,4 +41,8 @@
     <string name="name_of_the_choice">Name of the choice</string>
     <string name="add">Add</string>
     <string name="delete">Delete</string>
+    <string name="name_of_vote">Name of vote</string>
+    <string name="create">Create</string>
+    <string name="for_group">For group</string>
+    <string name="join">Join</string>
 </resources>

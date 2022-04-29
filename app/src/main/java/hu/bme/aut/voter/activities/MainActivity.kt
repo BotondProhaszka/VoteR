@@ -24,6 +24,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import hu.bme.aut.voter.R
+import hu.bme.aut.voter.data.GameDatabase
 import hu.bme.aut.voter.databinding.ActivityMainBinding
 import hu.bme.aut.voter.interfaces.UserInterface
 import java.lang.Exception
@@ -47,6 +48,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.appBarMain.toolbar)
         val navView = initNavView()
         initUser(navView)
+        GameDatabase.initDatabase(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

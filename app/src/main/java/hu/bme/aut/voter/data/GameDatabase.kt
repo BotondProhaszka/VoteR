@@ -6,25 +6,24 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(entities = [Game::class], version = 1)
-abstract class GameDatabase : RoomDatabase(){
-    abstract fun gameDao() : GameDao
+abstract class GameDatabase : RoomDatabase() {
+    abstract fun gameDao(): GameDao
 
-    companion object{
-        private var INSTANCE : GameDatabase? = null
-
-        fun getInstance(context: Context) : GameDatabase {
-            if(INSTANCE == null){
-                INSTANCE = Room.databaseBuilder(context.applicationContext,
-                GameDatabase::class.java, "game.db")
-                    .fallbackToDestructiveMigration()
-                    .build()
-            }
-            return INSTANCE!!
+    companion object {
+        private lateinit var INSTANCE: GameDatabase
+        fun initDatabase(context: Context) {
+            INSTANCE = Room.databaseBuilder(
+                context.applicationContext,
+                GameDatabase::class.java, "game.db"
+            )
+                .fallbackToDestructiveMigration()
+                .build()
         }
 
-        fun destroyInstance(){
-            INSTANCE = null
+        fun getInstance(): GameDatabase {
+            return INSTANCE
         }
+
     }
 
 }
