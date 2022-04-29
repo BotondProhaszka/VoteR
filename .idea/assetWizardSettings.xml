@@ -325,7 +325,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialiconsoutlined/lock/outline_lock_24.xml" />
+                                      <entry key="url" value="file:/$USER_HOME$/AppData/Local/Android/Sdk/icons/material/materialicons/delete/baseline_delete_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -336,7 +336,7 @@
                         <option name="values">
                           <map>
                             <entry key="opacityPercent" value="70" />
-                            <entry key="outputName" value="ic_outline_lock_24" />
+                            <entry key="outputName" value="ic_baseline_delete_24" />
                             <entry key="sourceFile" value="C:\Users\ProhaszkaBotond\Downloads\icons8-strategy-game-96-xxxhdpi.svg" />
                           </map>
                         </option>

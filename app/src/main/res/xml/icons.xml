@@ -1,0 +1,17 @@
+<icons width="30" height="30">
+    <category id="0" name="Games">
+        <icon id="0" tags="pubg" src="@drawable/ic_email_24"/>
+        <icon id="1" tags="card,cards" src="@drawable/ic_cards"/>
+        <icon id="2" tags="chef,overcooked," src="@drawable/ic_chef_hat"/>
+        <icon id="3" tags="controller" src="@drawable/ic_controller"/>
+        <icon id="4" tags="cs" src="@drawable/ic_counter_strike"/>
+        <icon id="5" tags="dice" src="@drawable/ic_dice"/>
+        <icon id="6" tags="gta" src="@drawable/ic_gtav"/>
+        <icon id="7" tags="joystick" src="@drawable/ic_joystick"/>
+        <icon id="8" tags="lol" src="@drawable/ic_lol"/>
+        <icon id="9" tags="minecraft" src="@drawable/ic_minecraft"/>
+        <icon id="10" tags="r6s" src="@drawable/ic_r6s"/>
+        <icon id="11" tags="rocket league" src="@drawable/ic_rocket_league"/>
+        <icon id="12" tags="strategy" src="@drawable/ic_strategy_game"/>
+    </category>
+</icons>

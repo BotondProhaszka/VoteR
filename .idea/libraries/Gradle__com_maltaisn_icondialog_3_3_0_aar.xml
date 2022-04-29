@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: com.maltaisn:icondialog:3.3.0@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/fefadd3550ccd4248f399f2645b8b617/transformed/icondialog-3.3.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/fefadd3550ccd4248f399f2645b8b617/transformed/icondialog-3.3.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/fefadd3550ccd4248f399f2645b8b617/transformed/icondialog-3.3.0/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.maltaisn/icondialog/3.3.0/65302d0cbf69d632bb36ea92ed887509137af6ff/icondialog-3.3.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.maltaisn/icondialog/3.3.0/5baea22c87874ae0c28928be58b2b15574f4d79c/icondialog-3.3.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

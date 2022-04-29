@@ -37,4 +37,8 @@
     <string name="password_again">Password again</string>
     <string name="forgot_password">Forgot password?</string>
     <string name="sign_in">Sign in</string>
+    <string name="game_name_placeholder">Game name placeholder</string>
+    <string name="name_of_the_choice">Name of the choice</string>
+    <string name="add">Add</string>
+    <string name="delete">Delete</string>
 </resources>

@@ -1,7 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-
-
     <style name="Theme.VoteR" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/primaryColor</item>
@@ -15,28 +13,12 @@
         <!-- Customize your theme here. -->
         <item name="fontFamily">sans-serif-condensed-medium</item>
         <item name="buttonStyle">@style/Theme.VoteR.Button</item>
+        <item name="android:textViewStyle">@style/Theme.VoteR.TextViewStyle</item>
     </style>
 
-    <style name="Username" parent="Theme.VoteR">
-        <item name="android:textSize">25sp</item>
-    </style>
 
-    <style name="Theme.VoteR.Dialog" parent="Theme.AppCompat.Dialog">
-        <item name="android:background">@color/secondaryColor</item>
-        <item name="buttonStyle">@style/Theme.VoteR.Button</item>
-    </style>
 
-    <style name="Theme.VoteR.Button" parent="@android:style/Widget.Button">
-        <item name="android:bottomLeftRadius">5dp</item>
-        <item name="android:textSize">12sp</item>
-        <item name="android:background">@color/secondaryColor</item>
-        <item name="android:textColor">@color/secondaryTextColor</item>
-    </style>
 
-    <style name="Theme.VoteR.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
 
     <style name="Theme.VoteR.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 

@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: com.maltaisn:iconpack-default:1.1.0@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-3/1f84a0db73b96bbd4fa8081f76300342/transformed/iconpack-default-1.1.0/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/1f84a0db73b96bbd4fa8081f76300342/transformed/iconpack-default-1.1.0/res" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-3/1f84a0db73b96bbd4fa8081f76300342/transformed/iconpack-default-1.1.0/AndroidManifest.xml" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.maltaisn/iconpack-default/1.1.0/4d3ea93fb9323943df8acede88cd784d5abc881/iconpack-default-1.1.0-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.maltaisn/iconpack-default/1.1.0/95719027e50106b7d98bfc180c27075af548230/iconpack-default-1.1.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
