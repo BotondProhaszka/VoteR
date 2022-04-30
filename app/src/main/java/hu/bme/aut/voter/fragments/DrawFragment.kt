@@ -1,10 +1,12 @@
 package hu.bme.aut.voter.fragments
 
+import android.graphics.drawable.Icon
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.graphics.drawable.toBitmap
 import androidx.fragment.app.Fragment
 import com.maltaisn.icondialog.IconDialog
 import com.maltaisn.icondialog.IconDialogSettings
@@ -15,7 +17,6 @@ import hu.bme.aut.voter.services.GameDatabase
 import hu.bme.aut.voter.databinding.FragmentDrawBinding
 import hu.bme.aut.voter.services.IconPackService
 import kotlin.concurrent.thread
-
 
 class DrawFragment() : Fragment(), IconDialog.Callback {
 
@@ -54,12 +55,17 @@ class DrawFragment() : Fragment(), IconDialog.Callback {
         dialog: IconDialog,
         icons: List<com.maltaisn.icondialog.data.Icon>
     ) {
-        Toast.makeText(this.context, "Icons selected: ${icons.map { it.id }}", Toast.LENGTH_SHORT)
-            .show()
+        icons.map {
+            Toast.makeText(this.context, "Icons selected: ${it.id}", Toast.LENGTH_SHORT)
+                .show()
+            binding.ivIcon.setImageIcon(Icon.createWithAdaptiveBitmap(iconPackService.iconPack.getIcon(it.id)?.drawable?.toBitmap()))
+        }
+
+
     }
 
     companion object {
-        private const val ICON_DIALOG_TAG = "icon-dialog"
+        const val ICON_DIALOG_TAG = "icon-dialog"
     }
 
 

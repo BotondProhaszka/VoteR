@@ -7,16 +7,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import com.maltaisn.icondialog.IconDialog
+import com.maltaisn.icondialog.IconDialogSettings
 import hu.bme.aut.voter.activities.MainActivity
 import hu.bme.aut.voter.adapters.GameAdapter
 import hu.bme.aut.voter.services.GameDatabase
 import hu.bme.aut.voter.databinding.FragmentCreateVoteBinding
 import hu.bme.aut.voter.model.Game
 import hu.bme.aut.voter.model.Vote
+import hu.bme.aut.voter.services.IconPackService
 import kotlin.concurrent.thread
 
 class CreateVoteFragment : Fragment() {
     private lateinit var binding: FragmentCreateVoteBinding
+    private lateinit var iconPackService: IconPackService
     private lateinit var gameAdapter: GameAdapter
 
     override fun onCreateView(
@@ -28,8 +32,15 @@ class CreateVoteFragment : Fragment() {
         binding = FragmentCreateVoteBinding.inflate(layoutInflater, container, false)
         initRecyclerView()
         checkUser()
-        binding.btnAdd.setOnClickListener { addGame() }
+        iconPackService = IconPackService(this.requireContext())
+        val iconDialog =
+            childFragmentManager.findFragmentByTag(DrawFragment.ICON_DIALOG_TAG) as IconDialog?
+                ?: IconDialog.newInstance(IconDialogSettings())
 
+        binding.ivIcon.setOnClickListener {
+            iconDialog.show(childFragmentManager, DrawFragment.ICON_DIALOG_TAG)
+        }
+        binding.btnAdd.setOnClickListener { addGame() }
         binding.btnCreate.setOnClickListener {
             createVote()
         }
@@ -116,7 +127,8 @@ class CreateVoteFragment : Fragment() {
                         voteName,
                         MainActivity.user.getEmail(),
                         selectedGames,
-                        MainActivity.dateTimeService.addMinutesToCurrentUtcTime(minutes.toLong()).toString()
+                        MainActivity.dateTimeService.addMinutesToCurrentUtcTime(minutes.toLong())
+                            .toString()
                     )
                     thread {
                         MainActivity.firestoreDatabase.createVote(vote)
