@@ -5,13 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout.OnRefreshListener
 import hu.bme.aut.voter.activities.MainActivity
 import hu.bme.aut.voter.adapters.VoteAdapter
 import hu.bme.aut.voter.databinding.FragmentJoinVoteBinding
 import hu.bme.aut.voter.interfaces.FirebaseCallback
 import hu.bme.aut.voter.model.Vote
-import kotlinx.coroutines.MainScope
 
 
 class JoinVoteFragment : Fragment(), FirebaseCallback {
@@ -25,10 +23,11 @@ class JoinVoteFragment : Fragment(), FirebaseCallback {
     ): View {
         binding = FragmentJoinVoteBinding.inflate(layoutInflater, container, false)
         initRecyclerView()
+        getVoteList()
 
-        binding.swipeRefresh.setOnRefreshListener(OnRefreshListener {
+        binding.swipeRefresh.setOnRefreshListener {
             getVoteList()
-        })
+        }
         return binding.root
     }
 

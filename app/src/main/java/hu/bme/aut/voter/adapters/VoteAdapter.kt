@@ -1,6 +1,7 @@
 package hu.bme.aut.voter.adapters
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,9 +15,9 @@ import hu.bme.aut.voter.model.Vote
 
 class VoteAdapter(val context: Context) : ListAdapter<Vote, VoteAdapter.ViewHolder>(VoteDiffCallback()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VoteAdapter.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.game_row, parent, false)
-        return VoteAdapter.ViewHolder(view)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.vote_row, parent, false)
+        return ViewHolder(view)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -29,11 +30,7 @@ class VoteAdapter(val context: Context) : ListAdapter<Vote, VoteAdapter.ViewHold
 
         fun bind(item: Vote) {
             binding.tvVoteName.text = item.name
-            binding.tvDeadline.text = item.deadline.toString()
-            binding.tvRemains.text = MainActivity.dateTimeService.getRemainingTime(
-                MainActivity.dateTimeService.getCurrentUTCTime(),
-                MainActivity.dateTimeService.convertStringToTime(item.deadline)
-            ).toString().plus(" min")
+            binding.tvDeadline.text = MainActivity.dateTimeService.convertToDisplayFormat(MainActivity.dateTimeService.convertStringToTime(item.deadline))
         }
     }
 }
