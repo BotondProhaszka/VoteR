@@ -14,7 +14,6 @@ import hu.bme.aut.voter.model.Game
 import hu.bme.aut.voter.services.GameDatabase
 import hu.bme.aut.voter.databinding.FragmentDrawBinding
 import hu.bme.aut.voter.services.IconPackService
-import java.lang.Exception
 import kotlin.concurrent.thread
 
 

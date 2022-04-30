@@ -1,15 +1,11 @@
 package hu.bme.aut.voter.services
 
 import android.util.Log
-import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import hu.bme.aut.voter.activities.MainActivity
-import hu.bme.aut.voter.databinding.VoteRowBinding
 import hu.bme.aut.voter.interfaces.FirebaseCallback
-import hu.bme.aut.voter.model.Game
 import hu.bme.aut.voter.model.Vote
-import java.time.LocalDateTime
 
 class FirestoreDatabase {
     private val db = Firebase.firestore

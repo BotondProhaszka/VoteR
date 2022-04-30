@@ -13,10 +13,7 @@ import hu.bme.aut.voter.services.GameDatabase
 import hu.bme.aut.voter.databinding.FragmentCreateVoteBinding
 import hu.bme.aut.voter.model.Game
 import hu.bme.aut.voter.model.Vote
-import java.lang.Exception
-import java.util.*
 import kotlin.concurrent.thread
-import kotlin.math.min
 
 class CreateVoteFragment : Fragment() {
     private lateinit var binding: FragmentCreateVoteBinding

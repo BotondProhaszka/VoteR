@@ -31,7 +31,6 @@ import hu.bme.aut.voter.interfaces.UserInterface
 import hu.bme.aut.voter.services.DateTimeService
 import hu.bme.aut.voter.services.FirestoreDatabase
 import java.lang.Exception
-import java.time.LocalDateTime
 import java.util.concurrent.Executors
 
 class MainActivity : AppCompatActivity() {
