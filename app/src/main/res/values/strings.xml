@@ -45,4 +45,8 @@
     <string name="create">Create</string>
     <string name="for_group">For group</string>
     <string name="join">Join</string>
+    <string name="vote_ends_in">Vote ends in</string>
+    <string name="minutes">minutes</string>
+    <string name="_2">2</string>
+    <string name="or_type_the_code">Or type the code</string>
 </resources>

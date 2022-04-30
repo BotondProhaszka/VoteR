@@ -2,14 +2,11 @@ package hu.bme.aut.voter.activities
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import hu.bme.aut.voter.R
 import hu.bme.aut.voter.databinding.ActivityLoginBinding
 import hu.bme.aut.voter.dialog.LoginAsGuestDialog
 import hu.bme.aut.voter.model.EmailUser
 import hu.bme.aut.voter.model.GoogleUser
-import hu.bme.aut.voter.model.GuestUser
 import hu.bme.aut.voter.services.EmailLoginService
 import hu.bme.aut.voter.services.GoogleLoginService
 
@@ -33,11 +30,6 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onStart() {
         super.onStart()
-        val intent = Intent(this, MainActivity::class.java)
-        intent.putExtra(MainActivity.TAG_USER, GuestUser(resources.getStringArray(R.array.usernames).random()))
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
-        startActivity(intent)
-        this.finish()
         googleLoginService.getLastSignedInAccount()?.let { googleLoginSuccess(it) }
         emailLoginService.getLastSignedInAccount()?.let { emailLoginSuccess(it) }
     }
@@ -62,7 +54,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun googleLoginSuccess(currentUser: GoogleUser) {
-        Toast.makeText(this, "Logged in as ${currentUser.getDisplayName()}", Toast.LENGTH_SHORT).show()
         val intent = Intent(this, MainActivity::class.java)
         intent.putExtra(MainActivity.TAG_USER, currentUser)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)
@@ -71,7 +62,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     fun emailLoginSuccess(currentUser: EmailUser) {
-        Toast.makeText(this, "Logged in as ${currentUser.getDisplayName()}", Toast.LENGTH_SHORT).show()
         val intent = Intent(this, MainActivity::class.java)
         intent.putExtra(MainActivity.TAG_USER, currentUser)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK)

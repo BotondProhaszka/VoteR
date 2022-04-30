@@ -3,6 +3,7 @@ package hu.bme.aut.voter.activities
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -10,6 +11,7 @@ import android.view.Menu
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import com.google.android.material.navigation.NavigationView
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -18,16 +20,18 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.children
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import hu.bme.aut.voter.R
-import hu.bme.aut.voter.data.GameDatabase
+import hu.bme.aut.voter.services.GameDatabase
 import hu.bme.aut.voter.databinding.ActivityMainBinding
 import hu.bme.aut.voter.interfaces.UserInterface
+import hu.bme.aut.voter.services.DateTimeService
+import hu.bme.aut.voter.services.FirestoreDatabase
 import java.lang.Exception
+import java.time.LocalDateTime
 import java.util.concurrent.Executors
 
 class MainActivity : AppCompatActivity() {
@@ -39,8 +43,12 @@ class MainActivity : AppCompatActivity() {
         const val TAG_USER = "TAG_USER"
         const val TAG_BUGFIX = "BUGFIX"
         lateinit var user: UserInterface
+
+        val firestoreDatabase = FirestoreDatabase()
+        val dateTimeService = DateTimeService()
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)

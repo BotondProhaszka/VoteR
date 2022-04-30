@@ -21,22 +21,23 @@
         android:id="@+id/etVoteName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginVertical="@dimen/default_vertical_margin"
         android:hint="@string/name_of_vote"
         android:inputType="textPersonName"
-        android:layout_marginVertical="@dimen/default_vertical_margin"
         app:layout_constraintEnd_toEndOf="@+id/rvGame"
         app:layout_constraintStart_toStartOf="@+id/rvGame"
-        app:layout_constraintTop_toBottomOf="@+id/rvGame" />
+        app:layout_constraintTop_toBottomOf="@+id/etGameName" />
 
     <Button
         android:id="@+id/btnCreate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/create"
         android:layout_marginVertical="@dimen/xxl_margin"
+        android:text="@string/create"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etMinutesPicker" />
 
     <CheckBox
         android:id="@+id/cbForGroup"
@@ -61,16 +62,66 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toTopOf="@+id/btnCreate"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timePicker" />
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <TimePicker
-        android:id="@+id/timePicker"
+
+    <EditText
+        android:id="@+id/etGameName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:timePickerMode="spinner"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cbForGroup"/>
+        android:ems="10"
+        android:hint="@string/name_of_the_choice"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toStartOf="@+id/btnAdd"
+        app:layout_constraintStart_toEndOf="@+id/ivIcon"
+        app:layout_constraintTop_toBottomOf="@+id/rvGame" />
+
+    <Button
+        android:id="@+id/btnAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add"
+        app:layout_constraintEnd_toEndOf="@+id/rvGame"
+        app:layout_constraintTop_toBottomOf="@+id/rvGame" />
+
+    <ImageView
+        android:id="@+id/ivIcon"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:layout_constraintBottom_toBottomOf="@+id/etGameName"
+        app:layout_constraintStart_toStartOf="@+id/rvGame"
+        app:layout_constraintTop_toBottomOf="@+id/rvGame"
+        android:src="@drawable/ic_cards"/>
+
+    <EditText
+        android:id="@+id/etMinutesPicker"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/default_horizontal_margin"
+        android:text="@string/_2"
+        android:textAlignment="center"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintStart_toEndOf="@+id/tvVoteEndsIn"
+        app:layout_constraintTop_toBottomOf="@+id/cbForGroup" />
+
+    <TextView
+        android:id="@+id/tvVoteEndsIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/vote_ends_in"
+        app:layout_constraintBottom_toBottomOf="@+id/etMinutesPicker"
+        app:layout_constraintStart_toStartOf="@+id/rvGame"
+        app:layout_constraintTop_toTopOf="@+id/etMinutesPicker" />
+
+    <TextView
+        android:id="@+id/tvMinutes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/default_horizontal_margin"
+        android:text="@string/minutes"
+        app:layout_constraintBottom_toBottomOf="@+id/etMinutesPicker"
+        app:layout_constraintStart_toEndOf="@+id/etMinutesPicker"
+        app:layout_constraintTop_toTopOf="@+id/etMinutesPicker" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import hu.bme.aut.voter.R
-import hu.bme.aut.voter.data.Game
-import hu.bme.aut.voter.data.GameDatabase
+import hu.bme.aut.voter.model.Game
+import hu.bme.aut.voter.services.GameDatabase
 import hu.bme.aut.voter.databinding.GameRowBinding
 import kotlin.concurrent.thread
 
@@ -25,7 +25,7 @@ class GameAdapter(val context: Context) : ListAdapter<Game, GameAdapter.ViewHold
         holder.bind(game)
     }
 
-    class ViewHolder(private val itemView: View,) : RecyclerView.ViewHolder(itemView) {
+    class ViewHolder(private val itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = GameRowBinding.bind(itemView)
 
         fun bind(item : Game) {
@@ -50,7 +50,7 @@ class GameAdapter(val context: Context) : ListAdapter<Game, GameAdapter.ViewHold
 }
 class GameDiffCallback : DiffUtil.ItemCallback<Game>() {
     override fun areItemsTheSame(oldItem: Game, newItem: Game): Boolean {
-        return oldItem.gameId == newItem.gameId
+        return oldItem.gameName == newItem.gameName
     }
 
     override fun areContentsTheSame(oldItem: Game, newItem: Game): Boolean {
