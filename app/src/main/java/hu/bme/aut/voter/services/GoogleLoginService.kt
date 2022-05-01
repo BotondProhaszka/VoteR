@@ -15,6 +15,7 @@ import com.google.android.gms.tasks.Task
 import hu.bme.aut.voter.activities.LoginActivity
 import hu.bme.aut.voter.activities.MainActivity
 import hu.bme.aut.voter.model.GoogleUser
+import hu.bme.aut.voter.model.User
 
 class GoogleLoginService(private val activity: LoginActivity) {
     private var mGoogleSignInClient: GoogleSignInClient
@@ -49,6 +50,12 @@ class GoogleLoginService(private val activity: LoginActivity) {
         try {
             val account = completedTask.getResult(ApiException::class.java)
             account?.let {
+                MainActivity.firestoreDatabase.addUser(
+                    GoogleUser(
+                        displayName = it.displayName.toString(),
+                        email = it.email.toString()
+                    )
+                )
                 activity.googleLoginSuccess(
                     GoogleUser(
                         it.displayName.toString(),

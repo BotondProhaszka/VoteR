@@ -70,7 +70,9 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun loginAsGuest() {
-        startActivity(Intent(this, LoginAsGuestDialog::class.java))
+        val loginAsGuest = LoginAsGuestDialog()
+        val transaction = supportFragmentManager.beginTransaction()
+        loginAsGuest.show(transaction, "Login as guest")
     }
 
 }

@@ -28,11 +28,17 @@ class EmailLoginService(private val activity: LoginActivity) {
 
 
     fun registerEmail(email: String, password: String) {
-        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(activity) { task -> listener(task) }
+        if (email != "" && password != "")
+            auth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(activity) { task ->
+                    listener(task)
+                }
     }
 
     fun emailLogin(email: String, password: String) {
-        auth.signInWithEmailAndPassword(email, password).addOnCompleteListener(activity) { task -> listener(task) }
+        if (email != "" && password != "")
+            auth.signInWithEmailAndPassword(email, password)
+                .addOnCompleteListener(activity) { task -> listener(task) }
     }
 
     fun forgotPassword(email: String) {
@@ -44,13 +50,15 @@ class EmailLoginService(private val activity: LoginActivity) {
         }
     }
 
-    private fun listener(task: Task<AuthResult>){
+    private fun listener(task: Task<AuthResult>) {
         if (task.isSuccessful) {
             Log.d(MainActivity.TAG_BUGFIX, "signInWithEmail:success")
             val user = auth.currentUser
             val username = activity.resources.getStringArray(R.array.usernames).random()
             user?.let {
-                activity.emailLoginSuccess(EmailUser(username, it.email.toString()))
+                val newUser = EmailUser(username, it.email.toString())
+                MainActivity.firestoreDatabase.addUser(newUser)
+                activity.emailLoginSuccess(newUser)
             }
 
         } else {

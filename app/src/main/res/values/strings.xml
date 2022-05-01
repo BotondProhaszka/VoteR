@@ -50,4 +50,6 @@
     <string name="_2">2</string>
     <string name="or_type_the_code">Or type the code</string>
     <string name="groups">Groups</string>
+    <string name="create_new_group">Create new group</string>
+    <string name="number_of_groups">Number of groups: %d</string>
 </resources>

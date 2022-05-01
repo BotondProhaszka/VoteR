@@ -4,7 +4,9 @@ import android.util.Log
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import hu.bme.aut.voter.activities.MainActivity
-import hu.bme.aut.voter.interfaces.FirebaseCallback
+import hu.bme.aut.voter.interfaces.GroupsCallback
+import hu.bme.aut.voter.interfaces.VotesCallback
+import hu.bme.aut.voter.model.User
 import hu.bme.aut.voter.model.Vote
 
 class FirestoreDatabase {
@@ -12,6 +14,11 @@ class FirestoreDatabase {
 
     private val VOTES_COLLECTION = "votes"
     private val VOTEID = "vote_id"
+    private val USERS_COLLECTION = "users"
+
+    fun clearOldVotes() {
+        db.collection(VOTES_COLLECTION).document()
+    }
 
     fun createVote(vote: Vote) {
         if (!MainActivity.user.hasRightCreatePoll())
@@ -19,7 +26,7 @@ class FirestoreDatabase {
         db.collection(VOTES_COLLECTION).document(VOTEID).set(vote)
     }
 
-    fun getVotes(caller : FirebaseCallback) {
+    fun getVotes(caller : VotesCallback) {
         val votes = mutableListOf<Vote>()
         db.collection(VOTES_COLLECTION).get()
             .addOnSuccessListener { document ->
@@ -32,6 +39,14 @@ class FirestoreDatabase {
                 Log.d(MainActivity.TAG_BUGFIX, exception.toString())
             }
 
+    }
+
+    fun getGroups(caller : GroupsCallback){
+
+    }
+
+    fun addUser(user: User){
+        db.collection(USERS_COLLECTION).add(user)
     }
 
 }

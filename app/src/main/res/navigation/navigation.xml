@@ -9,7 +9,8 @@
         android:id="@+id/nav_join_vote"
         android:name="hu.bme.aut.voter.fragments.JoinVoteFragment"
         android:label="@string/join_vote"
-        tools:layout="@layout/fragment_join_vote"/>
+        tools:layout="@layout/fragment_join_vote">
+    </fragment>
 
     <fragment
         android:id="@+id/nav_create_vote"

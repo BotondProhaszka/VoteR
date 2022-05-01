@@ -2,18 +2,25 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
-
-    <item
-        android:id="@+id/nav_join_vote"
-        android:title="@string/join_vote" />
-    <item
-        android:id="@+id/nav_create_vote"
-        android:title="@string/create_vote" />
-    <item
-        android:id="@+id/nav_draw"
-        android:title="@string/draw" />
-    <item
-        android:id="@+id/nav_group"
-        android:title="@string/groups" />
-
+    <group
+        android:id="@+id/groupVotes">
+        <item
+            android:id="@+id/nav_join_vote"
+            android:title="@string/join_vote" />
+        <item
+            android:id="@+id/nav_create_vote"
+            android:title="@string/create_vote" />
+    </group>
+    <group
+        android:id="@+id/groupDraw">
+        <item
+            android:id="@+id/nav_draw"
+            android:title="@string/draw" />
+    </group>
+    <group
+        android:id="@+id/groupGroups">
+        <item
+            android:id="@+id/nav_group"
+            android:title="@string/groups" />
+    </group>
 </menu>

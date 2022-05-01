@@ -8,11 +8,11 @@ import androidx.fragment.app.Fragment
 import hu.bme.aut.voter.activities.MainActivity
 import hu.bme.aut.voter.adapters.VoteAdapter
 import hu.bme.aut.voter.databinding.FragmentJoinVoteBinding
-import hu.bme.aut.voter.interfaces.FirebaseCallback
+import hu.bme.aut.voter.interfaces.VotesCallback
 import hu.bme.aut.voter.model.Vote
 
 
-class JoinVoteFragment : Fragment(), FirebaseCallback {
+class JoinVoteFragment : Fragment(), VotesCallback {
     private lateinit var binding: FragmentJoinVoteBinding
     private lateinit var voteAdapter: VoteAdapter
 

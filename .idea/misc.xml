@@ -8,6 +8,7 @@
         <entry key="..\:/Work/AnddoidStudioProjects/app/src/main/res/layout/activity_login.xml" value="0.358695652173913" />
         <entry key="..\:/Work/AnddoidStudioProjects/app/src/main/res/layout/activity_main.xml" value="0.358695652173913" />
         <entry key="..\:/Work/AnddoidStudioProjects/app/src/main/res/layout/activity_splash.xml" value="0.358695652173913" />
+        <entry key="..\:/Work/VoteR/app/src/main/res/drawable-v21/app_widget_inner_view_background.xml" value="0.2505" />
         <entry key="..\:/Work/VoteR/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.2565" />
         <entry key="..\:/Work/VoteR/app/src/main/res/drawable/ic_baseline_delete_24.xml" value="0.2625" />
         <entry key="..\:/Work/VoteR/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2565" />
@@ -29,11 +30,13 @@
         <entry key="..\:/Work/VoteR/app/src/main/res/layout/app_bar_main.xml" value="0.25104166666666666" />
         <entry key="..\:/Work/VoteR/app/src/main/res/layout/asd.xml" value="0.358695652173913" />
         <entry key="..\:/Work/VoteR/app/src/main/res/layout/content_main.xml" value="0.18333333333333332" />
+        <entry key="..\:/Work/VoteR/app/src/main/res/layout/dialog_create_group.xml" value="0.25" />
         <entry key="..\:/Work/VoteR/app/src/main/res/layout/dialog_guest_login.xml" value="1.5953947368421053" />
+        <entry key="..\:/Work/VoteR/app/src/main/res/layout/dialog_login_as_guest.xml" value="0.24479166666666666" />
         <entry key="..\:/Work/VoteR/app/src/main/res/layout/fragment_create_vote.xml" value="0.3625" />
         <entry key="..\:/Work/VoteR/app/src/main/res/layout/fragment_draw.xml" value="0.28020833333333334" />
         <entry key="..\:/Work/VoteR/app/src/main/res/layout/fragment_gallery.xml" value="0.25104166666666666" />
-        <entry key="..\:/Work/VoteR/app/src/main/res/layout/fragment_groups.xml" value="0.10790273556231003" />
+        <entry key="..\:/Work/VoteR/app/src/main/res/layout/fragment_groups.xml" value="0.25" />
         <entry key="..\:/Work/VoteR/app/src/main/res/layout/fragment_home.xml" value="0.25104166666666666" />
         <entry key="..\:/Work/VoteR/app/src/main/res/layout/fragment_join_vote.xml" value="0.33" />
         <entry key="..\:/Work/VoteR/app/src/main/res/layout/fragment_joint_vote.xml" value="0.346875" />
@@ -42,9 +45,11 @@
         <entry key="..\:/Work/VoteR/app/src/main/res/layout/fragment_slideshow.xml" value="0.25104166666666666" />
         <entry key="..\:/Work/VoteR/app/src/main/res/layout/fragment_vote.xml" value="0.26458333333333334" />
         <entry key="..\:/Work/VoteR/app/src/main/res/layout/game_row.xml" value="0.3625" />
+        <entry key="..\:/Work/VoteR/app/src/main/res/layout/group_row.xml" value="0.67" />
         <entry key="..\:/Work/VoteR/app/src/main/res/layout/nav_header_main.xml" value="0.28229166666666666" />
         <entry key="..\:/Work/VoteR/app/src/main/res/layout/nav_header_main2.xml" value="0.25104166666666666" />
         <entry key="..\:/Work/VoteR/app/src/main/res/layout/start_activity_widget.xml" value="0.9" />
+        <entry key="..\:/Work/VoteR/app/src/main/res/layout/user_row.xml" value="0.33" />
         <entry key="..\:/Work/VoteR/app/src/main/res/layout/vote_line_view.xml" value="0.25" />
         <entry key="..\:/Work/VoteR/app/src/main/res/layout/vote_r_widget.xml" value="0.34601449275362317" />
         <entry key="..\:/Work/VoteR/app/src/main/res/layout/vote_row.xml" value="0.33" />
