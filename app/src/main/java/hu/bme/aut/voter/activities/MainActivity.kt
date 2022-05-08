@@ -30,6 +30,7 @@ import hu.bme.aut.voter.databinding.ActivityMainBinding
 import hu.bme.aut.voter.interfaces.UserInterface
 import hu.bme.aut.voter.services.DateTimeService
 import hu.bme.aut.voter.services.FirestoreDatabase
+import hu.bme.aut.voter.services.GroupDatabase
 import java.lang.Exception
 import java.util.concurrent.Executors
 
@@ -55,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.appBarMain.toolbar)
         val navView = initNavView()
         initUser(navView)
-        GameDatabase.initDatabase(this)
+        initServices()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -130,6 +131,11 @@ class MainActivity : AppCompatActivity() {
                 e.printStackTrace()
             }
         }
+    }
+
+    private fun initServices(){
+        GameDatabase.initDatabase(this)
+        GroupDatabase.initDatabase(this)
     }
 
 }

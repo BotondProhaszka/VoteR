@@ -1,11 +1,9 @@
 package hu.bme.aut.voter.services
 
-import android.app.Activity
 import android.content.Intent
 import android.util.Log
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.app.ActivityCompat.startActivityForResult
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -15,7 +13,6 @@ import com.google.android.gms.tasks.Task
 import hu.bme.aut.voter.activities.LoginActivity
 import hu.bme.aut.voter.activities.MainActivity
 import hu.bme.aut.voter.model.GoogleUser
-import hu.bme.aut.voter.model.User
 
 class GoogleLoginService(private val activity: LoginActivity) {
     private var mGoogleSignInClient: GoogleSignInClient

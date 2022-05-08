@@ -52,4 +52,9 @@
     <string name="groups">Groups</string>
     <string name="create_new_group">Create new group</string>
     <string name="number_of_groups">Number of groups: %d</string>
+    <string name="search_user">Search user</string>
+    <string name="name_of_group">Name of group</string>
+    <string name="close">Close</string>
+    <string name="others_groups">Others\' groups</string>
+    <string name="own_groups">Own groups</string>
 </resources>

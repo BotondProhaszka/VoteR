@@ -9,3 +9,8 @@ interface VotesCallback {
 interface GroupsCallback{
     fun groupsReadyListener(groups : List<Group>)
 }
+
+
+interface FirebaseResultCallback{
+    fun resultListener(success: Boolean, message : String)
+}
